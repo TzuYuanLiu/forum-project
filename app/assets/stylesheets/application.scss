@@ -16,3 +16,32 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.header {
+	line-height: 50px;
+  background-color: whitesmoke;	
+
+	h1 {
+		font-family: 'Cabin', sans-serif;
+		letter-spacing: -1px;
+    font-size: 2rem;
+    text-transform: uppercase;
+		
+		a, {
+		color: #2C3033; 
+		}
+
+	  a:hover {
+			text-decoration: none;
+			color: #6F7579;
+		}
+	}
+}
+
+.container {
+	width: 80%;
+}
+
+.content {
+	padding-top: 20px;
+}

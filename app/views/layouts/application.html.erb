@@ -2,25 +2,57 @@
 <html>
 <head>
   <title>Forum</title>
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+   <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.css' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
+
+
 <div class="container">
-<% if flash[:notice].present? %>
-	<div class="alert alert-success">
-		<%= flash[:notice]%>		
-	</div>
-<% end %>
-<% if flash[:alert].present? %>
-	<div class="alert alert-danger">
-		<%= flash[:alert]%>		
-	</div>
-<% end %>
-<%= yield %>
+	<% if flash[:notice].present? %>
+		<div class="alert alert-success">
+			<%= flash[:notice]%>		
+		</div>
+	<% end %>
+	<% if flash[:alert].present? %>
+		<div class="alert alert-danger">
+			<%= flash[:alert]%>		
+		</div>
+	<% end %>
 </div>
+
+<div class="header">
+	<div class="container">
+		<div class="pull-left">
+			<h1><%= link_to "TzuYuan's Rails Forum", :root %></h1>
+		</div>
+
+		<div class="pull-right">
+		 <% if current_user %>
+		 		 Hi, <%= current_user.email %>
+		    <%= link_to('Sign out', destroy_user_session_path, :method => :delete) %> |
+		    <%= link_to('edit password', edit_registration_path(:user)) %>
+		  <% else %>
+		    <%= link_to('Sign up', new_registration_path(:user)) %> |
+		    <%= link_to('Sign in', new_session_path(:user)) %>
+		  <% end %>
+		</div>
+	</div>
+</div>
+
+<div class="clear-fix"></div>
+
+	<div class="container">
+		<section class="content">
+			<%= yield %>
+		</section>
+	</div>
+
 
 </body>
 </html>
