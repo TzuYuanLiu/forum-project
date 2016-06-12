@@ -1,0 +1,15 @@
+<h1>Edit your post</h1>
+<hr>
+<%= form_for @post do |f| %>
+
+<%= render :partial => 'form', :locals => {:f => f } %>
+
+<p>
+<%= f.submit "Update", :class => "btn btn-primary" %>
+</p>
+
+<% end %>
+
+<p>
+<%= link_to "index", posts_path %>
+</p>

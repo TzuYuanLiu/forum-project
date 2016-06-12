@@ -1,0 +1,24 @@
+
+<h1>This is our forum!</h1>
+
+<table class="table">
+<% @posts.each do |p| %>
+
+<tr>
+	<td>
+		<%= link_to p.title, post_path(p) %>
+	</td>
+	<td>
+		<%= link_to 'edit', edit_post_path(p), :class => "btn btn-default" %>
+		<%= link_to 'delete', post_path(p), :method => :delete, :class => "btn btn-default" %>
+	</td>
+
+</tr>
+
+
+
+<% end %>
+</table>
+
+
+<%= link_to "new post", new_post_path, :class => "btn btn-default" %>
