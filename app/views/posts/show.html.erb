@@ -7,28 +7,31 @@
 <p>
 <%= simple_format @post.content %>
 </p>
-
-<p>
-<%= link_to "index", posts_path %>
-</p>
-
+<hr>
 
 <!-- comment -->
 
-
-	<h4>
-		This post has 
-		<%= @post.comments.count %>
-		comments
-	</h4>
+<h4>
+	This post has 
+	<%= @post.comments.count %>
+	comments
+</h4>
 
 	
 <% @post.comments.each do |c| %>
+<p>
+comment by
+<%= current_user.short_name %>
+</p>
 	<%= c.comment %>	
+
+	<%= link_to 'edit', edit_post_comment_path(@post, c), :class => "btn btn-default" %>
+	<%= link_to 'delete', post_comment_path(@post, c), :method => :delete, :class => "btn btn-default" %>
 	<hr>
 <% end %>
 
-<%= form_for @comment , :url => post_comments_path(@post)  do |f| %>
+<%= form_for @comment , :url => post_comments_path(@post, @comment)  do |f| %>
+	
 	<div class="form-group">
 		<%= f.label :comment, "Comment" %>
 		<%= f.text_area :comment, :class => "form-control" %>
@@ -38,6 +41,3 @@
 <% end %>
 
 	
-
-<%= link_to "Edit", edit_post_path(@post), class: "button" %>
-<%= link_to "Delete", post_path(@post), method: :delete, data: { confirm: "Are you sure you want to do this?" }, class: "button" %>
