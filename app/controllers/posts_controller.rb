@@ -29,6 +29,10 @@ class PostsController < ApplicationController
   end
 
   def edit
+    unless @post.user == current_user
+      flash[:alert] = "No-Access-Edit-Allow"
+      redirect_to :root
+    end
   end
 
   def update
@@ -41,9 +45,14 @@ class PostsController < ApplicationController
   end
 
   def destroy
-  	@post.destroy
-  	flash[:alert] = "Post was successfully deleted"
-  	redirect_to :root
+    unless @post.user == current_user
+      flash[:alert] = "No-Access-Delete-Allow" 
+      redirect_to :root
+    else
+      flash[:alert] = "Post was successfully deleted"
+      @post.destroy
+      redirect_to :root
+    end  
   end
 
   protected
