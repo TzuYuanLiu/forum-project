@@ -1,7 +1,9 @@
 
 <div class="pull-right">
-<%= link_to "Order by last comment", posts_path(:order => "last_comment_time") %> ｜
-<%= link_to "Order by most comment", posts_path(:order => "comment_number") %>
+Order by: 
+<%= link_to "last comment", posts_path(:order => "last_comment_time") %> ｜
+<%= link_to "most comment", posts_path(:order => "comment_number") %> ｜
+<%= link_to "Title", posts_path(:order => "title" ) %>
 </div>
 
 <div class="clearfix"></div>
@@ -10,7 +12,6 @@
 
 <%= search_form_for @q do |f| %>
 
-  # Search if the name field contains...
   <%= f.label :title_cont %>
   <%= f.search_field :title_cont %>
 
@@ -18,9 +19,9 @@
 
 <p>
 
-
+sort by: 
 <% Category.all.each do |c| %>
- <%= link_to c.name, posts_path( :cid => c ) %>
+ <%= link_to c.name, posts_path( :cid => c ) %> |
  <% end %>
 
 </p>

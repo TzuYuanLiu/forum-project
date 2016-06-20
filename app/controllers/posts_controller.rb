@@ -10,12 +10,16 @@ class PostsController < ApplicationController
         @posts = @q.result(distinct: true).page( params[:page]).per(4).order(":id desc")
 
         if params[:cid]
-          category = Category.find(params[:cid])
-          
+          category = Category.find(params[:cid]) 
           @posts = category.posts.page( params[:page]).per(4).order(":id desc")
+        elsif params[:order] == "title"
+
+          @posts = Post.page( params[:page]).per(4).order(:title)
+            
           else
-          @topics = Post.page( params[:page]).per(4).order(":id desc")
+          @posts = Post.page( params[:page]).per(4).order(":id desc")
         end
+      
 
       #   sort_by = params[:order]
       #   @posts = Post.order(sort_by).page(params[:page]).per(5)
