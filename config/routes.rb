@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+ get "/about" => "posts#about"
+
   devise_for :users
   resources :posts do
     resources :comments
