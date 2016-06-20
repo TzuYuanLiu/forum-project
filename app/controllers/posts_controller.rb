@@ -6,8 +6,9 @@ class PostsController < ApplicationController
 
   def index
         @q = Post.ransack(params[:q])
-        @posts = @q.result(distinct: true).page( params[:page]).per(4).order(":id desc")
 
+        @posts = @q.result(distinct: true).page( params[:page]).per(4).order(":id desc")
+       
       # if params[:order] == "last_comment_time"
       #   @posts = Post.page( params[:page]).per(4).order("last_comment_time desc")
       # elsif params[:order] && params[:order] == "comment_count"
@@ -24,7 +25,6 @@ class PostsController < ApplicationController
   end	
 
   def new
-    # @post_category_ship = Post_category_ship.new
   	@post = Post.new
   end
 
@@ -78,7 +78,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-  	params.require(:post).permit(:title, :content, :logo, :q)
+  	params.require(:post).permit(:title, :content, :logo, :category_ids => [])
   end
 
 end

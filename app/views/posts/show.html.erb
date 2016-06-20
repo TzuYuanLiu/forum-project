@@ -2,6 +2,16 @@
 <%= @post.title %>
 </h1>
 
+<br/>
+
+<ul>
+	<% @post.categories.each do |c|  %>
+		<li>
+		<%=	c.name %>
+		</li>
+	<% end %>	
+</ul>
+
 <hr>
 <% if @post.logo.exists? %>
 <%= image_tag(@post.logo.url) %>

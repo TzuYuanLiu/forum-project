@@ -1,3 +1,5 @@
+ <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+
  <div class="form-group">
  <%= f.file_field :logo %>
 </div>
