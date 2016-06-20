@@ -23,7 +23,8 @@
 
 		<div class="pull-right">
 		 <% if current_user %>
-		 		 Hi, <%= current_user.short_name %>
+		 		 Hi, <%= link_to current_user.short_name, profile_path %>
+		 		 &nbsp; &nbsp; &nbsp;
 		 		<%= link_to "About", about_path %> |
 		    <%= link_to('Sign out', destroy_user_session_path, :method => :delete) %> |
 		    <%= link_to('edit profile', edit_registration_path(:user)) %>

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
  get "/about" => "posts#about"
+ get "/profile" => "posts#profile"
 
   devise_for :users
   resources :posts do
