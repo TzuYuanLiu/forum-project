@@ -24,6 +24,7 @@ class PostsController < ApplicationController
   end	
 
   def new
+    # @post_category_ship = Post_category_ship.new
   	@post = Post.new
   end
 
@@ -77,7 +78,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-  	params.require(:post).permit(:title, :content)
+  	params.require(:post).permit(:title, :content, :logo)
   end
 
 end
