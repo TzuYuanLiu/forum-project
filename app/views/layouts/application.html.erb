@@ -26,7 +26,7 @@
 		 		 Hi, <%= current_user.short_name %>
 		 		<%= link_to "About", about_path %> |
 		    <%= link_to('Sign out', destroy_user_session_path, :method => :delete) %> |
-		    <%= link_to('edit password', edit_registration_path(:user)) %>
+		    <%= link_to('edit profile', edit_registration_path(:user)) %>
 		  <% else %>
 		    <%= link_to('Sign up', new_registration_path(:user)) %> |
 		    <%= link_to('Sign in', new_session_path(:user)) %>
