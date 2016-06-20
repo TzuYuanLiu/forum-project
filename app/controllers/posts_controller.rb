@@ -8,13 +8,25 @@ class PostsController < ApplicationController
         @q = Post.ransack(params[:q])
 
         @posts = @q.result(distinct: true).page( params[:page]).per(4).order(":id desc")
-       
+
+        if params[:cid]
+          category = Category.find(params[:cid])
+          
+          @posts = category.posts.page( params[:page]).per(4).order(":id desc")
+          else
+          @topics = Post.page( params[:page]).per(4).order(":id desc")
+        end
+
+      #   sort_by = params[:order]
+      #   @posts = Post.order(sort_by).page(params[:page]).per(5)
       # if params[:order] == "last_comment_time"
       #   @posts = Post.page( params[:page]).per(4).order("last_comment_time desc")
       # elsif params[:order] && params[:order] == "comment_count"
       #   @posts = Post.page( params[:page]).per(4).order("comments_count desc")
       # elsif params[:order] && params[:order] == "topic_clicks"
       #   @posts = Post.page( params[:page]).per(4).order("clicked desc")
+      # elsif params[:order] == "Frontend"
+      #   @posts = Category.find_by(:name => "Frontend").posts
       # else
       #   @posts = Post.page( params[:page]).per(4).order(":id desc")
       # end
