@@ -5,18 +5,18 @@ class PostsController < ApplicationController
 
 
   def index
+        @q = Post.ransack(params[:q])
+        @posts = @q.result(distinct: true).page( params[:page]).per(4).order(":id desc")
 
-
-
-      if params[:order] == "last_comment_time"
-        @posts = Post.page( params[:page]).per(4).order("last_comment_time desc")
-      elsif params[:order] && params[:order] == "comment_count"
-        @posts = Post.page( params[:page]).per(4).order("comments_count desc")
-      elsif params[:order] && params[:order] == "topic_clicks"
-        @posts = Post.page( params[:page]).per(4).order("clicked desc")
-      else
-        @posts = Post.page( params[:page]).per(4).order(":id desc")
-      end
+      # if params[:order] == "last_comment_time"
+      #   @posts = Post.page( params[:page]).per(4).order("last_comment_time desc")
+      # elsif params[:order] && params[:order] == "comment_count"
+      #   @posts = Post.page( params[:page]).per(4).order("comments_count desc")
+      # elsif params[:order] && params[:order] == "topic_clicks"
+      #   @posts = Post.page( params[:page]).per(4).order("clicked desc")
+      # else
+      #   @posts = Post.page( params[:page]).per(4).order(":id desc")
+      # end
     
 
 
@@ -78,7 +78,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-  	params.require(:post).permit(:title, :content, :logo)
+  	params.require(:post).permit(:title, :content, :logo, :q)
   end
 
 end

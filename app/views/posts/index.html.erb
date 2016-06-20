@@ -6,6 +6,16 @@
 
 <div class="clearfix"></div>
 
+
+<%= search_form_for @q do |f| %>
+
+  # Search if the name field contains...
+  <%= f.label :title_cont %>
+  <%= f.search_field :title_cont %>
+
+  <%= f.submit %>
+<% end %>
+
 <% @posts.each do |p| %>
 	<h1>
 		<%= link_to p.title, post_path(p) %>
