@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
 	validates_presence_of :title
 	belongs_to :user
-	has_many :comments, :dependent => :destroy
+	has_many :comments, :dependent => :destroy, :counter_cache => true
 	has_many :categories, :through => :post_category_ships
 	has_many :post_category_ships
 

@@ -12,19 +12,19 @@ class PostsController < ApplicationController
 
 
   def index
+
+
         @q = Post.ransack(params[:q])
-
         @posts = @q.result(distinct: true).page( params[:page]).per(4).order(":id desc")
-
-        if params[:cid]
-          category = Category.find(params[:cid]) 
-          @posts = category.posts.page( params[:page]).per(4).order(":id desc")
-        elsif params[:order] == "title"
-
-          @posts = Post.page( params[:page]).per(4).order(:title)
-            
+          if params[:cid]
+            category = Category.find(params[:cid]) 
+            @posts = category.posts.page( params[:page]).per(4).order(":id desc")
+          elsif params[:order] == "title"
+            @posts = Post.page( params[:page]).per(4).order(:title)
+          elsif params[:order] == "comment_count"
+            @posts = Post.page( params[:page]).per(4).order(:comments_count)
           else
-          @posts = Post.page( params[:page]).per(4).order(":id desc")
+            @posts = Post.page( params[:page]).per(4).order(":id desc")
         end
       
 
@@ -48,6 +48,7 @@ class PostsController < ApplicationController
   end	
 
   def new
+    @post = Post.new
   end
 
   def create

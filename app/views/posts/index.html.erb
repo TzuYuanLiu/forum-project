@@ -28,28 +28,32 @@ sort by:
 
 <% end %>
 
+
 <% @posts.each do |p| %>
-	<h1>
-		<%= link_to p.title, post_path(p) %>
-	</h1>
-
-
-	<p>
-	Published at
-	<%= time_ago_in_words(p.created_at) %>
-	ago
-	by
-	<%= p.user.try(:short_name) %>
-	</p>
-	
-	<% if current_user %>
-	<p>
-	<%= link_to 'edit', edit_post_path(p), :class => "btn btn-default" %>
-	<%= link_to 'delete', post_path(p), :method => :delete, :class => "btn btn-default" %>
-	</p>
-	<% end %>
-	<hr>
-			
+	<table class="table">
+		<tr>
+			<td>
+				<h1>
+					<%= link_to p.title, post_path(p) %>
+				</h1>
+				Published at
+				<%= p.created_at %>
+				by
+				<%= p.user.try(:short_name) %>
+			</td>
+			<td>
+				This post has 
+				<%= p.comments.size %>
+				comments
+			</td>		
+			<td>
+				<% if current_user %>
+				<%= link_to 'edit', edit_post_path(p), :class => "btn btn-default" %>
+				<%= link_to 'delete', post_path(p), :method => :delete, :class => "btn btn-default" %>
+				<% end %>
+			</td>	
+		</tr>
+	</table>		
 <% end %>
 
 	<%= link_to "new post", new_post_path, :class => "btn btn-default"  %>
