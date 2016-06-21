@@ -4,6 +4,7 @@ class PostsController < ApplicationController
 
 
   def profile
+    @posts = current_user.posts
   end
 
   def about
@@ -47,7 +48,6 @@ class PostsController < ApplicationController
   end	
 
   def new
-  	@post = Post.new
   end
 
   def create

@@ -1,14 +1,18 @@
-<div class="container">
+
 <h3>About</h3>
 
 <hr>
-
-<p>First name: <%= current_user.first_name %></p>
- 
- 
-<p>Last name: <%= current_user.last_name %></p>
- 
- 
+<p>First name: <%= current_user.first_name %></p> 
+<p>Last name: <%= current_user.last_name %></p> 
 <p>User bio: <%= current_user.bio %></p> 
-</div>
+<hr>
+
+<h3>Your posts</h3>
+
+<br/>
+<% @posts.each do |p| %>
+<p>Title: <%= p.title %></p>
+<p>Content: <%= p.content %></p>
+<hr>
+<% end %>
 
