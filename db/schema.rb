@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160621032347) do
+ActiveRecord::Schema.define(version: 20160621091213) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -42,13 +42,13 @@ ActiveRecord::Schema.define(version: 20160621032347) do
     t.integer  "user_id"
     t.datetime "last_comment_time"
     t.integer  "most_comment"
-    t.integer  "comments_count",    default: 0
     t.string   "status",            default: "draft"
     t.datetime "clicked"
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+    t.integer  "comments_count",    default: 0
   end
 
   create_table "users", force: :cascade do |t|

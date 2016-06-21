@@ -21,7 +21,7 @@ class PostsController < ApplicationController
             @posts = category.posts.page( params[:page]).per(4).order(":id desc")
           elsif params[:order] == "title"
             @posts = Post.page( params[:page]).per(4).order(:title)
-          elsif params[:order] == "comment_count"
+          elsif params[:order] == "comments_count"
             @posts = Post.page( params[:page]).per(4).order(:comments_count)
           else
             @posts = Post.page( params[:page]).per(4).order(":id desc")
