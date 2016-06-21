@@ -38,7 +38,7 @@ None
 <% @post.comments.each do |c| %>
 <p>
 comment by
-<%= @post.user.short_name %>
+<%= c.user.try(:short_name) %>
 </p>
 	<%= c.comment %>	
 
