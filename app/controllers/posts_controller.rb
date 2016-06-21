@@ -8,8 +8,15 @@ class PostsController < ApplicationController
   end
 
   def about
+    @posts = Post.all
   end
 
+  # def find_last_post_comment_time
+  #   @posts = Post.all 
+  #   @post.each do |p|
+  #     p.comment.last.created_at
+  #   end
+  # end
 
   def index
 
@@ -22,7 +29,10 @@ class PostsController < ApplicationController
           elsif params[:order] == "title"
             @posts = Post.page( params[:page]).per(4).order(:title)
           elsif params[:order] == "comments_count"
-            @posts = Post.page( params[:page]).per(4).order(:comments_count)
+            @posts = Post.page( params[:page]).per(4).order(":comments_count desc")
+          elsif params[:order] == "last_comment_time"
+            # last_comment_post = Post
+            @posts = Post.page( params[:page]).per(4).order(:last_comment_time)
           else
             @posts = Post.page( params[:page]).per(4).order(":id desc")
         end
@@ -101,7 +111,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-  	params.require(:post).permit(:title, :content, :logo, :category_ids => [])
+  	params.require(:post).permit(:title, :content, :logo, :role,:category_ids => [])
   end
 
 end
