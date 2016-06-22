@@ -6,6 +6,8 @@ class Admin::PostsController < ApplicationController
 
     # ....
 
+
+
     protected
 
     def check_admin

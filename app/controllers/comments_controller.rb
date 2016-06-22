@@ -22,11 +22,13 @@ before_action :set_post
 			redirect_to post_path(@post)
 		else
 			@comment = @post.comments.find(params[:id])
-			
+		
+
 		end
 	end	
 
 	def update
+
 		@comment = @post.comments.find(params[:id])
 
 		if @comment.update(comment_param)
