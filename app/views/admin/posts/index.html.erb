@@ -1,1 +1,16 @@
-Admin
+
+<h1>Category</h1>
+
+<table class="table">	
+	<% @category.each do |c| %>
+		<tr>
+			<td>
+				<%=	c.name %>
+				<%= link_to 'edit', edit_admin_category_path(c), :class => "btn btn-default" %>
+				<%= link_to 'delete', admin_category_path(c), :method => :delete, :class => "btn btn-default" %>
+			</td>
+		</tr>
+	<% end %>
+</table>
+
+<%= link_to 'new', new_admin_category_path, :class => "btn btn-default" %>
