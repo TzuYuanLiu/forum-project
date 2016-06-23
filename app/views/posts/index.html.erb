@@ -33,6 +33,9 @@ sort by:
 	<table class="table">
 		<tr>
 			<td>
+				<%= image_tag p.user.gravatar_url %>
+			</td>
+			<td>
 				<h1>
 					<%= link_to p.title, post_path(p) %>
 				</h1>

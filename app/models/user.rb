@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
        :recoverable, :rememberable, :trackable, :validatable,
        :omniauthable, :omniauth_providers => [:facebook]  
 
+include Gravtastic
+  gravtastic
+
 
 	def short_name
 		self.email.split('@').first

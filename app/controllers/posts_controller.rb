@@ -20,22 +20,20 @@ class PostsController < ApplicationController
   # end
 
   def index
-
-
-        @q = Post.ransack(params[:q])
-        @posts = @q.result(distinct: true).page( params[:page]).per(4).order(":id desc")
-          if params[:cid]
-            category = Category.find(params[:cid]) 
-            @posts = category.posts.page( params[:page]).per(4).order(":id desc")
-          elsif params[:order] == "title"
-            @posts = Post.page( params[:page]).per(4).order(:title)
-          elsif params[:order] == "comments_count"
-            @posts = Post.page( params[:page]).per(4).order(":comments_count desc")
-          elsif params[:order] == "last_comment_time"
-            @posts = Post.page( params[:page]).per(4).order(":last_comment_time desc")
-          else
-            @posts = Post.page( params[:page]).per(4).order(":id desc")
-        end
+    @q = Post.ransack(params[:q])
+    @posts = @q.result(distinct: true).page( params[:page]).per(4).order(":id desc")
+      if params[:cid]
+        category = Category.find(params[:cid]) 
+        @posts = category.posts.page( params[:page]).per(4).order(":id desc")
+      elsif params[:order] == "title"
+        @posts = Post.page( params[:page]).per(4).order(:title)
+      elsif params[:order] == "comments_count"
+        @posts = Post.page( params[:page]).per(4).order(":comments_count desc")
+      elsif params[:order] == "last_comment_time"
+        @posts = Post.page( params[:page]).per(4).order(":last_comment_time desc")
+      else
+        @posts = Post.page( params[:page]).per(4).order(":id desc")
+  end
       
 
       #   sort_by = params[:order]
