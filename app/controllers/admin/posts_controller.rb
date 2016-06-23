@@ -4,13 +4,20 @@ class Admin::PostsController < ApplicationController
 	before_action :check_admin
     layout "admin"
 
+    # def index
+    #   @user = User.all
+    #   @category = Category.all  
+    # end
+
+    # def edit_category
+    #   @category = @category.all
+    # end
+
     def index
-      @category = Category.all  
+      @category = Category.all
+      @user = User.all
     end
 
-    def edit_category
-      @category = @category.all
-    end
 
     protected
 

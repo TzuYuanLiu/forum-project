@@ -14,3 +14,18 @@
 </table>
 
 <%= link_to 'new', new_admin_category_path, :class => "btn btn-default" %>
+<hr>
+
+
+<h1>User list</h1>
+<table>
+	<% @user.each do |p| %>
+		<tr>
+			<td>
+			<%= p.email %> 
+			<%= link_to 'edit', edit_admin_user_path(p), :class => "btn btn-default" %>
+			<hr>
+			</td>
+		</tr>
+	<% end %>	
+</table>

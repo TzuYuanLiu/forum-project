@@ -36,9 +36,14 @@ before_action :set_category, :only => [ :edit, :update, :destroy ]
 	end
 
 	def destroy
-		flash[:alert] = "Post was successfully deleted"
-    @category.destroy
-    redirect_to admin_posts_path
+		if @category.posts.size > 0
+			flash[:alert] = "This category has been used"
+			redirect_to admin_posts_path
+		else
+			flash[:notice] = "Post was successfully deleted"
+	    @category.destroy
+	    redirect_to admin_posts_path
+	  end  
 	end
 
 	private
