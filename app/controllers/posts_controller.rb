@@ -32,8 +32,7 @@ class PostsController < ApplicationController
           elsif params[:order] == "comments_count"
             @posts = Post.page( params[:page]).per(4).order(":comments_count desc")
           elsif params[:order] == "last_comment_time"
-            # last_comment_post = Post
-            @posts = Post.page( params[:page]).per(4).order(:last_comment_time)
+            @posts = Post.page( params[:page]).per(4).order(":last_comment_time desc")
           else
             @posts = Post.page( params[:page]).per(4).order(":id desc")
         end
@@ -95,11 +94,12 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    unless @post.user == current_user
+    unless @post.user == current_user || current_user.role == "admin"
+      byebug
       flash[:alert] = "No-Access-Delete-Allow" 
       redirect_to :root
     else
-      flash[:alert] = "Post was successfully deleted"
+      flash[:notice] = "Post was successfully deleted"
       @post.destroy
       redirect_to :root
     end  
