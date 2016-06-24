@@ -30,6 +30,7 @@ gem "paperclip", "~> 5.0.0.beta1"
 gem 'ransack'
 gem 'omniauth-facebook'
 gem 'gravtastic'
+gem 'rest-client'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
