@@ -44,10 +44,17 @@ sort by:
 				by
 				<%= p.user.try(:short_name) %>
 			</td>
-			<td>
-				This post has 
+			<td> 
 				<%= p.comments_count %>
-				comments
+				comments by
+				<ul>
+				<% p.comments.each do |c|%>
+				<li><%= c.user.short_name %></li>
+				<% end %>
+				</ul>
+			</td>
+			<td>
+				<div class="fb-like" data-href="https://localhost/3000" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
 			</td>		
 			<td>
 				<% if current_user %>
