@@ -38,8 +38,8 @@
 
 		  <% end %>
 
-			| <% if current_user && current_user.role == "admin" %>			    
-			    <%= link_to('Admin', admin_posts_path)%>
+			 <% if current_user && current_user.role == "admin" %>			    
+			   | <%= link_to('Admin', admin_posts_path)%>
 			<% end %>
 		</div>
 	</div>

@@ -17,13 +17,12 @@ before_action :set_post
 	end
 
 	def edit
-		if @post.user != current_user
+		@comment = @post.comments.find(params[:id])
+		if current_user.is_author?(@comment)
+			# TODO 
+			# Replace all conditions to new method defined in User model 
 			flash[:alert] = "No-Access-Edit-Allow"
 			redirect_to post_path(@post)
-		else
-			@comment = @post.comments.find(params[:id])
-		
-
 		end
 	end	
 
@@ -57,6 +56,7 @@ before_action :set_post
       else
         @post.last_comment_time = nil
       end
+
       @post.save
 
       flash[:alert] = "Comment was successfully deleted"
