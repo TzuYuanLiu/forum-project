@@ -3,7 +3,6 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, :except => [:index, :show]
 
   
-
   def profile
     @posts = current_user.posts
   end
@@ -12,47 +11,28 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
-  # def find_last_post_comment_time
-  #   @posts = Post.all 
-  #   @post.each do |p|
-  #     p.comment.last.created_at
-  #   end
-  # end
 
   def index
     @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true).page( params[:page]).per(4).order(":id desc")
-      if params[:cid]
-        category = Category.find(params[:cid]) 
-        @posts = category.posts.page( params[:page]).per(4).order(":id desc")
-      elsif params[:order] == "title"
-        @posts = Post.page( params[:page]).per(4).order(:title)
-      elsif params[:order] == "comments_count"
-        @posts = Post.page( params[:page]).per(4).order(":comments_count desc")
-      elsif params[:order] == "last_comment_time"
-        @posts = Post.page( params[:page]).per(4).order(":last_comment_time desc")
-      else
-        @posts = Post.page( params[:page]).per(4).order(":id desc")
-  end
-      
+    if params[:q]
+      @posts = @q.result(distinct: true).where(status: "draft")
+    else
+      @posts = Post.where(status: "draft")
+    end
 
-      #   sort_by = params[:order]
-      #   @posts = Post.order(sort_by).page(params[:page]).per(5)
-      # if params[:order] == "last_comment_time"
-      #   @posts = Post.page( params[:page]).per(4).order("last_comment_time desc")
-      # elsif params[:order] && params[:order] == "comment_count"
-      #   @posts = Post.page( params[:page]).per(4).order("comments_count desc")
-      # elsif params[:order] && params[:order] == "topic_clicks"
-      #   @posts = Post.page( params[:page]).per(4).order("clicked desc")
-      # elsif params[:order] == "Frontend"
-      #   @posts = Category.find_by(:name => "Frontend").posts
-      # else
-      #   @posts = Post.page( params[:page]).per(4).order(":id desc")
-      # end
-    
+    if params[:category_id]
+      category = Category.find(params[:category_id]) 
+      @posts = category.posts.where(status: "draft").order("id desc")
+    elsif params[:order] == "title"
+      @posts = @posts.order("title asc")
+    elsif params[:order] == "comments_count"
+      @posts = @posts.order("comments_count desc")
+    elsif params[:order] == "last_comment_time"
+      @posts = @posts.order("last_comment_time desc")
+    end  
 
+    @posts = @posts.page( params[:page]).per(4)
 
-  	
   end	
 
   def new
@@ -73,6 +53,12 @@ class PostsController < ApplicationController
  
   def show
     @comment = Comment.new
+    @post.views_count = @post.views_count + 1
+    @post.save
+    # TODO 1 views_count
+    # Add a new column(e.g. views_count) to posts table
+    # Plus one whenver one enter show action 
+    # Will refactor and use session or cookie
   end
 
   def edit
@@ -110,7 +96,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-  	params.require(:post).permit(:title, :content, :logo, :role,:category_ids => [])
+  	params.require(:post).permit(:title, :content, :logo, :role, :status, :category_ids => [])
   end
 
 end
