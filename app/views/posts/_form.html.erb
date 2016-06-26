@@ -1,5 +1,11 @@
+<p>
+Category: <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+</p>
 
- <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+ 
+<p>
+Staus: <%= f.select :status, ['Draft', 'Publish' ], :prompt => 'Select One' %>
+</p>
 
  <div class="form-group">
  <%= f.file_field :logo %>
