@@ -50,3 +50,16 @@
 	}
 }
 
+#table-style tr td {
+  vertical-align: center !important;
+  text-align: center;
+}
+
+#table-style tr td:nth-child(2) {
+  text-align: left;
+}
+
+#table-style tr:nth-child(1) td:nth-child(2) {
+  text-align: center;
+}
+

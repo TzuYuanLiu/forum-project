@@ -21,7 +21,7 @@ Order by:
 
 sort by: 
 <% Category.all.each do |c| %>
- <%= link_to c.name, posts_path( :cid => c ) %> |
+ <%= link_to c.name, posts_path( :category_id => c ) %> |
  <% end %>
 
 </p>
@@ -29,42 +29,59 @@ sort by:
 <% end %>
 
 
-<% @posts.each do |p| %>
-	<table class="table">
-		<tr>
-			<td>
-				<%= image_tag p.user.gravatar_url %>
-			</td>
-			<td>
-				<h1>
-					<%= link_to p.title, post_path(p) %>
-				</h1>
-				Published at
-				<%= p.created_at %>
-				by
-				<%= p.user.try(:short_name) %>
-			</td>
-			<td> 
-				<%= p.comments_count %>
-				comments by
-				<ul>
-				<% p.comments.each do |c|%>
-				<li><%= c.user.short_name %></li>
-				<% end %>
-				</ul>
-			</td>
-			<td>
-				<div class="fb-like" data-href="https://localhost/3000" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-			</td>		
-			<td>
-				<% if current_user %>
-				<%= link_to 'edit', edit_post_path(p), :class => "btn btn-default" %>
-				<%= link_to 'delete', post_path(p), :method => :delete, :class => "btn btn-default" %>
-				<% end %>
-			</td>	
-		</tr>
-	</table>		
-<% end %>
+
+<table class="table" id="table-style">
+	<tr>
+		<td>User image</td>
+		<td>Title</td>
+		<td>Views count</td>
+		<td>Comment count</td>
+		<td>Comment author</td>
+		<td>Like and share</td>
+		<td>Edit post</td>
+	</tr>
+	<% @posts.each do |p| %>
+	<tr>
+		<td>
+			<%= image_tag p.user.gravatar_url %>
+		</td>
+		<td>
+			<h1>
+				<%= link_to p.title, post_path(p) %>
+			</h1>
+			Published at
+			<%= p.created_at %>
+			<p>
+			Post by 
+			<%= p.user.try(:short_name) %>
+			</p>
+		</td>
+		<td>
+			<%= p.views_count %>
+		</td>
+		<td>
+			<%= p.comments_count %> 
+		</td>
+		<td> 
+			
+			<% @users = p.comments.map{|c| c.user}.uniq %>
+			<% @users.each do |u|%>
+			<p><%= u.short_name %></p>
+			<% end %>
+			
+		</td>
+		<td>
+			<div class="fb-like" data-href="https://localhost/3000" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+		</td>		
+		<td>
+			<% if current_user %>
+			<%= link_to 'edit', edit_post_path(p), :class => "btn btn-default" %>
+			<%= link_to 'delete', post_path(p), :method => :delete, :class => "btn btn-default" %>
+			<% end %>
+		</td>	
+	</tr>
+	<% end %>
+</table>
 
 	<%= link_to "new post", new_post_path, :class => "btn btn-default"  %>
 
