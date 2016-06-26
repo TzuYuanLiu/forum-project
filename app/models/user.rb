@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
        :recoverable, :rememberable, :trackable, :validatable,
        :omniauthable, :omniauth_providers => [:facebook]  
 
-include Gravtastic
+  include Gravtastic
   gravtastic
 
 
@@ -21,12 +21,12 @@ include Gravtastic
 	def self.from_omniauth(auth)
      # Case 1: Find existing user by facebook uid
      user = User.find_by_fb_uid( auth.uid )
-     if user
-        user.fb_token = auth.credentials.token
-        #user.fb_raw_data = auth
-        user.save!
-       return user
-     end
+    if user
+      user.fb_token = auth.credentials.token
+      #user.fb_raw_data = auth
+      user.save!
+      return user
+    end
 
      # Case 2: Find existing user by email
      existing_user = User.find_by_email( auth.info.email )
@@ -48,5 +48,11 @@ include Gravtastic
      user.save!
      return user
    end
+
+  # def is_author?(record) 
+  #   if self == record.user
+  #     return true
+  #   end
+  # end
 
 end
