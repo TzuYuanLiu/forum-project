@@ -4,6 +4,11 @@
 
 <br/>
 
+<% if @is_favorite %>
+<%= link_to "not favorite", favorite_post_path(@post, :favorite => false) %>
+<% else %>
+<%= link_to "favorite", favorite_post_path(@post, :favorite => true) %>
+<% end %>
 
 <ul>
 	<% @post.categories.each do |c|  %>

@@ -1,9 +1,10 @@
 
 <div class="pull-right">
 Order by: 
-<%= link_to "last comment", posts_path(:order => "last_comment_time") %> ｜
-<%= link_to "most comment", posts_path(:order => "comments_count") %> ｜
-<%= link_to "Title", posts_path(:order => "title" ) %>
+<%= link_to "Last comment", posts_path(:order => "last_comment_time") %> ｜
+<%= link_to "Most comment", posts_path(:order => "comments_count") %> ｜
+<%= link_to "Title", posts_path(:order => "title" ) %>｜
+<%= link_to "Views count", posts_path(:order => "views_count" ) %>
 </div>
 
 <div class="clearfix"></div>

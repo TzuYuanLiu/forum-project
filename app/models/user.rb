@@ -4,7 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :posts  
-  has_many :comments  
+  has_many :comments 
+  has_many :user_post_favorite_ships
+  has_many :posts, :through => :user_post_favorite_ships
 
   devise :database_authenticatable, :registerable,
        :recoverable, :rememberable, :trackable, :validatable,

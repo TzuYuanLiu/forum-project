@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
 	has_many :comments, :dependent => :destroy, :counter_cache => true
 	has_many :categories, :through => :post_category_ships
 	has_many :post_category_ships
+	has_many :users, :through => :user_post_favorite_ships
 
 
 	has_attached_file :logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
