@@ -13,36 +13,104 @@ class PostsController < ApplicationController
 
   def profile
     @posts = current_user.posts
+
+    # favorites = UserPostFavoriteShip.where( :user => current_user )
+
+    # @favorite_posts = Post.includes(:users).where(users: { id: current_user.id })
+
+    @favorite_posts = current_user.favorite_posts
+
+    # @favorites = []
+    # favorite_posts.each do |f|
+    #   @favorites << Post.find(f.post_id)
+    # end
   end
 
   def about
     @posts = Post.all
   end
 
-
   def index
-    @posts = Post.all
     @q = Post.ransack(params[:q])
     if params[:q]
-      @posts = @q.result(distinct: true).where(status: "draft")
+      @posts = @q.result(distinct: true).published
     else
-      # @posts = Post.where(status: "draft")
+      @posts = Post.published
     end
 
-    if params[:category_id]
-      category = Category.find(params[:category_id]) 
-      @posts = category.posts.where(status: "draft").order("id desc")
-    elsif params[:order] == "title"
-      @posts = @posts.order("title asc")
-    elsif params[:order] == "comments_count"
-      @posts = @posts.order("comments_count desc")
-    elsif params[:order] == "last_comment_time"
-      @posts = @posts.order("last_comment_time desc")
-    elsif params[:order] == "views_count"
-      @posts = @posts.order("views_count desc")  
-    end  
+    # if user_signed_in?
+    #   if params[:category_id]
+    #     category = Category.find(params[:category_id])
+    #     @posts = category.posts.by_user(current_user)
+    #   else
+    #     @posts = Post.by_user(current_user)
+    #   end
+    # else
+    #   if params[:category_id]
+    #     category = Category.find(params[:category_id]) 
+    #     @posts = category.posts.published
+    #   else
+    #     @posts = Post.published
+    #   end
+    # end
 
-    @posts = @posts.page( params[:page]).per(4)
+    # if params[:category_id]
+    #   category = Category.find(params[:category_id])
+    #   if user_signed_in?
+    #     @posts = category.posts.by_user(current_user)
+    #   else
+    #     @posts = category.posts.published
+    #   end
+    # else
+    #   if user_signed_in?
+    #     @posts = Post.by_user(current_user)
+    #   else
+    #     @posts = Post.published
+    #   end
+    # end
+
+    # @posts = params[:category_id].present? ? Category.find(params[:category_id]).posts : Post.all
+    # 上下等價
+    if params[:category_id].present?
+      @posts = Category.find(params[:category_id]).posts
+    else
+      @posts = Post.all
+    end
+
+    @posts = user_signed_in? ? @posts.by_user(current_user) : @posts.published
+
+    # 如果要改良 ransack 應該會發生在這邊
+
+    @posts = @posts.order(params[:order] + ' desc') if params[:order].present?
+      # case params[:order]
+      # when 'comments_count desc'
+      #   @posts.order('comments_count desc')
+      # when 'last_comment_time desc'
+      #   @posts.order('last_comment_time desc')
+      # when 'views_count desc'
+      #   @posts.order('views_count desc')
+      # end
+
+    # if params[:category_id]
+
+    #   category = Category.find(params[:category_id]) 
+    #   @posts = category.posts.published 
+    #   @posts = @posts.order("title desc")
+    # elsif params[:order] == "comments_count desc"
+    #   @posts = @posts.order("comments_count desc")
+    # elsif params[:order] == "last_comment_time"
+    #   @posts = @posts.order("last_comment_time desc")
+    # elsif params[:order] == "views_count"
+    #   @posts = @posts.order("views_count desc")  
+    # else
+    #   if user_signed_in?
+    #     @posts = Post.by_user(current_user)
+    #   else
+    #     @posts = Post.published
+    #   end
+    # end  
+
+    @posts = @posts.page(params[:page]).per(4)
 
   end	
 
@@ -67,7 +135,7 @@ class PostsController < ApplicationController
     @post.views_count = @post.views_count + 1
     @post.save
 
-    @is_favorite = UserPostFavoriteShip.where(:user_id => current_user.id, :post_id => @post.id).count == 0 ? false : true
+    # @is_favorite = UserPostFavoriteShip.where(:user_id => current_user.id, :post_id => @post.id).count == 0 ? false : true
     # TODO 1 views_count
     # Add a new column(e.g. views_count) to posts table
     # Plus one whenver one enter show action 

@@ -1,10 +1,10 @@
 
 <div class="pull-right">
 Order by: 
-<%= link_to "Last comment", posts_path(:order => "last_comment_time") %> ｜
-<%= link_to "Most comment", posts_path(:order => "comments_count") %> ｜
-<%= link_to "Title", posts_path(:order => "title" ) %>｜
-<%= link_to "Views count", posts_path(:order => "views_count" ) %>
+<%= link_to "Last comment", posts_path(:order => "last_comment_time", :category_id => params[:category_id]) %> ｜
+<%= link_to "Most comment", posts_path(:order => "comments_count", :category_id => params[:category_id]) %> ｜
+<%= link_to "Title", posts_path(:order => "title", :category_id => params[:category_id]) %>｜
+<%= link_to "Views count", posts_path(:order => "views_count", :category_id => params[:category_id]) %>
 </div>
 
 <div class="clearfix"></div>
@@ -42,6 +42,7 @@ sort by:
 		<td>Like and share</td>
 		<td>Edit post</td>
 	</tr>
+
 	<% @posts.each do |p| %>
 	<tr>
 		<td>
