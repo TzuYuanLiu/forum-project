@@ -19,7 +19,7 @@ class PostsController < ApplicationController
     # @favorite_posts = Post.includes(:users).where(users: { id: current_user.id })
 
     @favorite_posts = current_user.favorite_posts
-
+    @like_posts = current_user.like_posts
     # @favorites = []
     # favorite_posts.each do |f|
     #   @favorites << Post.find(f.post_id)

@@ -16,10 +16,20 @@
 <hr>
 <% end %>
 
- <h3>Your favorites posts</h3>
+ <h3>Your favorite posts</h3>
 
 <ul>
 	<% @favorite_posts.each do |f| %>
+    <li>
+      <%= link_to f.title, post_path(f) %>
+    </li>
+  <% end %>
+</ul>
+
+ <h3>Your likeed posts</h3>
+
+<ul>
+	<% @like_posts.each do |f| %>
     <li>
       <%= link_to f.title, post_path(f) %>
     </li>
