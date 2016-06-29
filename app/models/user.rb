@@ -6,7 +6,9 @@ class User < ActiveRecord::Base
   has_many :posts  
   has_many :comments 
   has_many :user_post_favorite_ships
-  has_many :favorite_posts, :through => :user_post_favorite_ships, :source => :post
+  has_many :favorite_posts, :through => :user_post_favorite_ships, :source => :posts
+  has_many :user_post_like
+  has_many :like_posts, :through => :user_post_likes, :source => :posts
 
   devise :database_authenticatable, :registerable,
        :recoverable, :rememberable, :trackable, :validatable,

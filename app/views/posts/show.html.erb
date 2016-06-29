@@ -4,6 +4,12 @@
 
 <br/>
 
+<% like = @post.find_my_like(current_user) %>
+<div id="like-block">
+	<%= render :partial => "likes/like", :locals => { :like => like } %>
+</div>
+
+
 <%== favorite_button(@post) %>
 
 <ul>

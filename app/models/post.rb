@@ -6,6 +6,8 @@ class Post < ActiveRecord::Base
 	has_many :categories, :through => :post_category_ships
 	has_many :user_post_favorite_ships
 	has_many :users, :through => :user_post_favorite_ships
+	has_many :user_post_likes
+	has_many :liked_users, :through => :user_post_like, :source => :user
 
 
 	has_attached_file :logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
@@ -19,6 +21,10 @@ class Post < ActiveRecord::Base
   scope :by_user, -> (user){ where.not('status = ? and user_id is NOT ?', 'Draft', user.id) }
 
   def favorite_by?(user)
-  	UserPostFavoriteShip.where(:user_id => user.id, :post_id => id).present?
+  	UserPostFavoriteShip.where(:user => user, :post_id => id).present?
+  end
+
+  def find_my_like(user)
+    self.user_post_likes.where( :user => user ).first
   end
 end
