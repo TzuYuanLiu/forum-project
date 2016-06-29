@@ -41,13 +41,24 @@ before_action :set_post
 		end
 	end
 
-	def destroy
-		unless @post.user == current_user
+
+		def destroy
+			@comment = current_user.comments.find(params[:id])
+		unless @comment.user == current_user
 			flash[:alert] = "No-Access-Delete-Allow"
       redirect_to post_path(@post)
-		else
-			@comment = @post.comments.find(params[:id])
-			@comment.destroy
+		else	
+   
+    @comment.destroy
+ 
+     respond_to do |f|
+       f.html { redirect_to :back }
+       f.js # destroy.js.erb
+     end
+   
+		
+		# 	@comment = @post.comments.find(params[:id])
+		# 	@comment.destroy
 			
 
 			if @post.comments.count > 1
@@ -61,7 +72,7 @@ before_action :set_post
 
       flash[:alert] = "Comment was successfully deleted"
 
-      redirect_to post_path(@post)
+      # redirect_to post_path(@post)
 		end
 	end
 

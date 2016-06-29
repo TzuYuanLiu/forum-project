@@ -4,21 +4,30 @@
 <%= @post.title %>
 </h1>
 
+<hr>
+
 <% like = @post.find_my_like(current_user) %>
+	
 <div id="like-block">
 	<%= render :partial => "likes/like", :locals => { :like => like } %>
 </div>
 
-<br/>
-
+<p>
+The following user like this post.
+</p>
+<ul>
+	<% @post.user_post_likes.each do |c|  %>
+		<li>
+		<%=	c.user.short_name %> 
+		</li>
+	<% end %>	
+</ul>
 
 <% if @post.favorite_by?(current_user) %>
    <%= link_to 'favorite', favorite_post_path(@post, :favorite => false), :class => "glyphicon glyphicon-star btn btn-success" %>
  <% else %>
    <%= link_to 'favorite', favorite_post_path(@post, :favorite => true), :class => "glyphicon glyphicon-star-empty btn btn-default" %>
  <% end %>
-
-
 
 <ul>
 	<% @post.categories.each do |c|  %>
@@ -51,6 +60,7 @@ None
 
 	
 <% @post.comments.each do |c| %>
+<div id="comment-<%= c.id%>"> 
 <p>
 comment by
 <%= c.user.try(:short_name) %>
@@ -60,6 +70,7 @@ comment by
 	<%= link_to 'edit', edit_post_comment_path(@post, c), :class => "btn btn-default" %>
 	<%= link_to 'delete', post_comment_path(@post, c), :method => :delete, :class => "btn btn-default" %>
 	<hr>
+</div>	
 <% end %>
 
 
@@ -72,6 +83,7 @@ comment by
 </p>	
 	
 <% end %>
+
 
 <script>
 	
