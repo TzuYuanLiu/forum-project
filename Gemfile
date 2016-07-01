@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.6'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
-gem 'mysql2', "~> 0.3.20"
+
 
 # Use SCSS for stylesheets
 gem 'bootstrap-sass', '~> 3.3.6'
@@ -35,7 +35,7 @@ gem 'omniauth-facebook'
 gem 'gravtastic'
 gem 'rest-client'
 
-
+gem 'mysql2', "~> 0.3.20", group: :production
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
