@@ -8,6 +8,8 @@ class Post < ActiveRecord::Base
 	has_many :users, :through => :user_post_favorite_ships
 	has_many :user_post_likes
 	has_many :liked_users, :through => :user_post_like, :source => :user
+	has_many :post_tag_ships
+	has_many :tags, :through => :post_tag_ships 
 
 
 	has_attached_file :logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"

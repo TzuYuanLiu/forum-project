@@ -46,9 +46,14 @@ None
 
 
 <p>
-<%= simple_format @post.content %>
+	<%= simple_format @post.content %>
 </p>
 <hr>
+
+Tags: 
+<% @post.tags do |t| %>
+	<%= link_to t.tag, tag %>
+<% end %>
 
 <!-- comment -->
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628224702) do
+ActiveRecord::Schema.define(version: 20160629104144) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 20160628224702) do
     t.integer  "category_id"
   end
 
+  create_table "post_tag_ships", force: :cascade do |t|
+    t.integer  "post_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "post_tag_ships", ["post_id"], name: "index_post_tag_ships_on_post_id"
+  add_index "post_tag_ships", ["tag_id"], name: "index_post_tag_ships_on_tag_id"
+
   create_table "posts", force: :cascade do |t|
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
@@ -51,6 +61,12 @@ ActiveRecord::Schema.define(version: 20160628224702) do
     t.integer  "comments_count",    default: 0
     t.integer  "views_count",       default: 0
     t.integer  "like"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "tag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_post_favorite_ships", force: :cascade do |t|

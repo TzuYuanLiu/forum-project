@@ -22,3 +22,8 @@ Staus: <%= f.select :status, ['Draft', 'Publish' ], :prompt => 'Select One' %>
 <%= f.text_area :content, :class => "form-control"  %>
 </div>
 
+<div class="form-group">
+<%= f.label :tags, "Tag"  %>
+<%= f.text_field :tags, :class => "form-control"  %>
+</div>
+
