@@ -19,8 +19,12 @@ class Post < ActiveRecord::Base
 		# return true if self.user == user
   # end
 
-  scope :published, -> { where(status: 'Publish') }
-  scope :by_user, -> (user){ where.not('status = ? and user_id is NOT ?', 'Draft', user.id) }
+  scope :published, lambda {
+  	Post.draft.by_user & Post.publish
+	}
+
+  scope :publish, -> { where(status: 'Publish') }
+  scope :sign_in_post, -> (user){ where("user_id = ? or status = ?", user.id, "Publish")}
 
   def favorite_by?(user)
   	UserPostFavoriteShip.where(:user => user, :post_id => id).present?
