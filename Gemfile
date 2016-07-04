@@ -35,7 +35,7 @@ gem 'omniauth-facebook'
 gem 'gravtastic'
 gem 'rest-client'
 
-gem 'mysql2', group: :production
+#gem 'mysql2', group: :production
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
