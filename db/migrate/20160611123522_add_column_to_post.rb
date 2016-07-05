@@ -4,7 +4,7 @@ class AddColumnToPost < ActiveRecord::Migration
   	add_column :posts, :content, :text
 
   	change_table :posts do |t|
-  		t.remove :post, :name
+  		t.remove :posts, :name, :string
 		end
   end
 end
