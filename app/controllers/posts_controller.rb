@@ -35,7 +35,7 @@ class PostsController < ApplicationController
     if params[:q]
       @posts = @q.result(distinct: true).published
     else
-      @posts = Post.published
+      @posts = Post.publish
     end
 
     # if user_signed_in?
@@ -77,7 +77,7 @@ class PostsController < ApplicationController
       @posts = Post.all
     end
 
-    @posts = user_signed_in? ? @posts.by_user(current_user) : @posts.published
+    @posts = user_signed_in? ? @posts.by_user(current_user) : @posts.publish
 
     # 如果要改良 ransack 應該會發生在這邊
 
