@@ -6,7 +6,7 @@ class CreatePost < ActiveRecord::Migration
 
    #    t.timestamps null: false
    # add_column :posts, :title, :string
-  	add_column :posts, :content, :string
+  	#add_column :posts, :content, :string
     # end
   end
 end
