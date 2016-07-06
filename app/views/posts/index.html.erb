@@ -46,7 +46,7 @@ sort by:
 	<% @posts.each do |p| %>
 	<tr>
 		<td>
-			<%= image_tag p.user.gravatar_url %>
+			<%= image_tag p.try(:user).try(:gravatar_url) %>
 		</td>
 		<td>
 			<h1>

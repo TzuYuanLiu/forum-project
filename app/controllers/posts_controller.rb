@@ -160,7 +160,6 @@ class PostsController < ApplicationController
 
   def destroy
     unless @post.user == current_user || current_user.role == "admin"
-      byebug
       flash[:alert] = "No-Access-Delete-Allow" 
       redirect_to :root
     else
