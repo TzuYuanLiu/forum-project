@@ -19,12 +19,8 @@ class Post < ActiveRecord::Base
 		# return true if self.user == user
   # end
 
-  scope :published, lambda {
-  	Post.draft.by_user & Post.publish
-	}
-
-  scope :publish, -> { where(status: 'Publish') }
   scope :sign_in_post, -> (user){ where("user_id = ? or status = ?", user.id, "Publish")}
+  scope :publish, -> { where(status: 'Publish') }
 
   def favorite_by?(user)
   	UserPostFavoriteShip.where(:user => user, :post_id => id).present?
